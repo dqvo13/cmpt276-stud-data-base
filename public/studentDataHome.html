@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Data Home</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- BS5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!-- BS5 JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        
+        <!-- Font Awesome 4 icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- custom script -->
+        <script src="./scripts/studentDataHomeNav.js"></script>
+    </head>
+    <body>
+        <!-- PAGE HEADINGS -->
+        <div class="container text-center my-4">
+            <h1 class="display-1">Welcome to the Student Database.</h1>
+            <h1 class="display-4">Please select an option to get started.</h1>
+            <button type="button" class="btn btn-success btn-lg" id="nav-addStudent">Add A Student</button>
+            <button type="button" class="btn btn-primary btn-lg">Edit A Student</button>
+            <button type="button" class="btn btn-warning btn-lg">Display All Students</button>
+        </div>
+
+        <!-- STUDENT TABLE -->
+        <div class="container-fluid">
+            <h1 class="display-6">Students</h1>
+            <table class="table table-hover">
+                <tr class="table-dark">
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>GPA</td>
+                    <td>Age</td>
+                    <td>Height (cm)</td>
+                    <td>Weight (kg)</td>
+                    <td>Hair Colour</td>
+                    <td class="bg-primary">Edit Info</td>
+                    <td class="bg-danger">Delete Student</td>
+                </tr>
+                <tr>
+                    <td>134727950</td>
+                    <td>decapixel</td>
+                    <td>4.0</td>
+                    <td>20</td>
+                    <td>174.0</td>
+                    <td>54.4</td>
+                    <td>
+                        <input type="color" disabled
+                        class="form-control form-control-color" value="#000000">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary"
+                        data-bs-toggle="offcanvas" data-bs-target="#studEdit">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>267984777</td>
+                    <td>Sparklenite</td>
+                    <td>4.0</td>
+                    <td>20</td>
+                    <td>174.0</td>
+                    <td>54.4</td>
+                    <td>
+                        <input type="color" disabled
+                        class="form-control form-control-color" value="#000000">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary"
+                        data-bs-toggle="offcanvas" data-bs-target="#studEdit">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- OFFCANVAS EDIT MENU -->
+        <div class="offcanvas offcanvas-end bg-primary" id="studEdit">
+            <div class="offcanvas-header">
+                <h1 class="offcanvas-title text-light">Edit Student</h1>
+                <button type="button" data-bs-dismiss="offcanvas"
+                class="btn-close btn-close-white text-reset"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form action="/addStudent" method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">#</span>
+                        <input type="number" min="0" id="studID" name="f_studID" 
+                        class="form-control" placeholder="Student ID">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" id="firstName" name="f_firstName" 
+                        class="form-control" placeholder="First Name">
+                        <input type="text" id="lastName" name="f_lastName" 
+                        class="form-control" placeholder="Last Name">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">#</span>
+                        <input type="number" min="0" max="5" id="gpa" name="f_gpa"
+                        class="form-control" placeholder="GPA">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" min="0" max="150" id="age" name="f_age"
+                        class="form-control" placeholder="Age">
+                        <span class="input-group-text">years old</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" min="0" id="height" name="f_height"
+                        class="form-control" placeholder="Height">
+                        <span class="input-group-text">cm</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" min="0" id="weight" name="f_weight"
+                        class="form-control" placeholder="Weight">
+                        <span class="input-group-text">kg</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Hair Colour:</span>
+                        <input type="color" id="hairColour" name="f_hairColour"
+                        class="form-control form-control-color" value="#FFFFFF">
+                    </div>
+                    <div class="d-grid gap-3">
+                        <button type="reset" value="Reset"
+                        class="btn btn-danger btn-sm btn-block">Reset</button>
+                        <button type="submit" value="Submit" 
+                        class="btn btn-success btn-lg btn-block">Save Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
