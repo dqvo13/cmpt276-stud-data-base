@@ -2,17 +2,56 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
+// connect to postgreSQL
+const { Pool } = require('pg');
+var pool = new Pool({
+  // localhost server
+  // connectionString: 'schema://user:password@host/database'
+  // connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
+
+  // take database variable given by heroku
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+pool.connect();
+
 app = express()
 
 // understand JSON
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+// basic routing
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
-app.post('/public/studentDataAdd.html', (req, res) => {
+
+// postgreSQL usages
+app.get('/viewStudents', (req, res) => {
+  var getStudentsQuery = `SELECT * FROM studData`;
+  pool.query(getStudentsQuery, (err, result) => {
+    if (err) res.end(err);                  // end response if there's an error
+    var tableObj = {'rows':result.rows};    // JSON object containing results of query
+    res.render('pages/db', tableObj);
+  })
+})
+app.get('/student/:id', (req, res) => {
+  var studID = req.params.id;
+  console.log("looking for student with ID " + studID);
+
+  var selectStudentQuery = `SELECT * FROM studData WHERE id=$1`
+  var values = studID
+
+  pool.query(selectStudentQuery, values, (err, result) => {
+    if (err) res.end(err);                  // end response if there's an error
+    var tableObj = {'rows':result.rows};    // JSON object containing results of query
+    res.render('pages/db', tableObj);
+  })
+})
+app.post('/addStudent', (req, res) => {
   var db_studID = req.body.f_studID  
   var db_firstName = req.body.f_firstName
   var db_lastName = req.body.f_lastName
@@ -22,6 +61,14 @@ app.post('/public/studentDataAdd.html', (req, res) => {
   var db_weight = req.body.f_weight
   var db_hairColour = req.body.f_hairColour
 
-  
+  var addStudentQuery = `INSERT INTO studData (id, fname, lname, gpa, age, height, weight, haircol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+  var values = [db_studID, db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour];
+
+  pool.query(addStudentQuery, values, (err, result) => {
+    if (err) res.end(err);
+    console.log("added student: ", db_studID, db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour);
+  })
 })
+
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
