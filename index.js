@@ -1,9 +1,7 @@
-require('dotenv').config();
 const { json } = require('express');
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const pgp = require('pg-promise')();
 
 // connect to postgreSQL
 const { Pool } = require('pg');
@@ -13,7 +11,6 @@ var pool = new Pool({
   connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
 
   // heroku server
-  
   // connectionString: process.env.DATABASE_URL
   /*
   ssl: {
@@ -21,12 +18,6 @@ var pool = new Pool({
   }
   */
 });
-var pool2 = new Pool({
-  connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
-})
-var connectionString = 'postgres://postgres:adm1n-superroot@localhost/students'
-const db = pgp(connectionString)
-// pool.connect()
 
 app = express();
 
@@ -47,46 +38,14 @@ app.get('/', (req, res) => {
   })
 });
 app.route('/navAdd').get((req, res) => {
-  // console.log("going to add page...")
+  console.log("going to add page...")
   res.render('pages/studentDataAdd')
 })
 
-async function query (q) {
-  const client = await pool.connect()
-  let res
-  try {
-    await client.query('BEGIN')
-    try {
-      res = await client.query(q)
-      await client.query('COMMIT')
-    } catch (err) {
-      await client.query('ROLLBACK')
-      throw err
-    }
-  } finally {
-    client.release()
-  }
-  return res
-}
-async function query (q, p) {
-  const client = await pool.connect()
-  let res
-  try {
-    await client.query('BEGIN')
-    try {
-      res = await client.query(q, p)
-      await client.query('COMMIT')
-    } catch (err) {
-      await client.query('ROLLBACK')
-      throw err
-    }
-  } finally {
-    client.release()
-  }
-  return res
-}
 
-// postgreSQL usages
+/***************************************************************** 
+ *                PostgreSQL Connections
+*****************************************************************/
 app.get('/viewStudents', (req, res) => {
   var getStudentsQuery = `SELECT * FROM studData`;
   pool.query(getStudentsQuery, (err, result) => {
@@ -95,21 +54,10 @@ app.get('/viewStudents', (req, res) => {
     res.render('pages/studentBoxes', tableObj);
   })
 })
-/*
-app.get('/editStudent/:id', (req, res) => {
-  var studID = req.params.id;
-  console.log("looking for student with ID " + studID);
 
-  var selectStudentQuery = `SELECT * FROM studData WHERE id=$1`
-  var values = studID
-
-  pool.query(selectStudentQuery, values, (err, result) => {
-    if (err) res.end(err);                  // end response if there's an error
-    var tableObj = {'rows':result.rows};    // JSON object containing results of query
-    res.render('pages/db', tableObj);
-  })
-})
-*/
+/**
+ * ADD a student
+ */
 app.post('/addStudent', async (req, res) => {
   var db_studID = req.body.f_studID  
   var db_firstName = req.body.f_firstName
@@ -136,13 +84,17 @@ app.post('/addStudent', async (req, res) => {
   const client2 = await pool.connect()
   try {
     const rows = await client2.query(getStudentsQuery)
-    console.log("select after add.")
+    console.log("SELECT after INSERT.")
     // console.log(JSON.stringify(rows))
     res.render('pages/studentDataHome', rows);
   } finally {
     client2.release()
   }
 })
+
+/**
+ * UPDATE a student
+ */
 app.post('/updateStudent', async (req, res) => {
   var db_ID = req.body.f_ID
   var db_studID = req.body.f_studID
@@ -170,7 +122,7 @@ app.post('/updateStudent', async (req, res) => {
   const client2 = await pool.connect()
   try {
     const rows = await client2.query(getStudentsQuery)
-    console.log("select after update.")
+    console.log("SELECT after UPDATE.")
     // console.log(JSON.stringify(rows))
     res.render('pages/studentDataHome', rows);
   } finally {
@@ -178,18 +130,37 @@ app.post('/updateStudent', async (req, res) => {
   }
 })
 
-app.post('/deleteStudent/:id', (req, res) => {
+/**
+ * DELETE a student
+ */
+app.get('/deleteStudent/:id', async (req, res) => {
   var db_ID = req.params.id
 
   var deleteStudentQuery = `DELETE FROM studdata WHERE id=$1`
   var values = [db_ID]
+  var getStudentsQuery = `SELECT * FROM studdata`
 
-  pool.query(deleteStudentQuery, values, (err, result) => {
-    if (err) res.end(err);
-    console.log("deleted student with id=", db_ID);
-    res.render('pages/studentDataHome');
-  })
+  const client = await pool.connect()
+  try {
+    const rows = await client.query(deleteStudentQuery, values)
+    console.log("deleted student:", values)
+    // console.log(JSON.stringify(rows))
+  } finally {
+    client.release()
+  }
+
+  const client2 = await pool.connect()
+  try {
+    const rows = await client2.query(getStudentsQuery)
+    console.log("SELECT after DELETE.")
+    // console.log(JSON.stringify(rows))
+    res.render('pages/studentDataHome', rows);
+  } finally {
+    client2.release()
+  }
 })
 
-
+/**
+ * PORT LISTENING
+ */
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
