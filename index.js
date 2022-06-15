@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
   })
 });
 app.route('/navAdd').get((req, res) => {
-  console.log("going to add page...")
+  // console.log("going to add page...")
   res.render('pages/studentDataAdd')
 })
 
@@ -50,7 +50,7 @@ app.get('/viewStudents', (req, res) => {
   pool.query(getStudentsQuery, (err, result) => {
     if (err) res.end(err);                  // end response if there's an error
     var tableObj = {'rows':result.rows};    // JSON object containing results of query
-    res.render('pages/db', tableObj);
+    res.render('pages/studentBoxes', tableObj);
   })
 })
 /*

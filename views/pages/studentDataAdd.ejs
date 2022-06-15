@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add a Student</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- BS5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <!-- BS5 JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         
-        <!-- Font Awesome 4 icons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!-- custom CSS -->
-        <link href="./stylesheets/studentDataAdd.css" rel="stylesheet">
-        <!-- custom script -->
-        <script src="./scripts/studentDataAddNav.js"></script>
+        <%- include ("../partials/headerAdd.ejs") %>
+        
     </head>
     <body>
         <!-- HEADINGS -->
-        <div class="container my-3 float-start">
-            <form action="/" method="get">
-                <button type="button" id="nav-studHome"
+        <div class="container-fluid mx-3 my-4 float-start">
+            <form action="/" method="get" class="form-inline">
+                <button type="submit" id="nav-studHome"
                     class="btn btn-outline-dark">
                     <i class="fa fa-chevron-left me-1"></i>
                     Back to Student Database
