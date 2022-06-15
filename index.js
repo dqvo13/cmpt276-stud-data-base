@@ -97,7 +97,7 @@ app.post('/addStudent', (req, res) => {
     res.render('pages/studentDataHome', tableObj);
   })
 })
-app.post('/updateStudent', async (req, res) => {
+app.post('/updateStudent', (req, res) => {
   var db_ID = req.body.f_ID
   var db_studID = req.body.f_studID
   var db_firstName = req.body.f_firstName
