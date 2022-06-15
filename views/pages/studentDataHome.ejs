@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <%- include ("../partials/headerHome.ejs") %>
         
     </head>
@@ -25,6 +25,7 @@
             <table class="table table-hover">
                 <tr class="table-dark">
                     <td>ID</td>
+                    <td>Student #</td>
                     <td>First Name</td>
                     <td>Last Name</td>
                     <td>GPA</td>
@@ -38,6 +39,7 @@
                 <% rows.forEach(function(r) { %>
                 <tr>
                     <td><%= r.id %></td>
+                    <td><%= r.studid %></td>
                     <td><%= r.fname %></td>
                     <td><%= r.lname %></td>
                     <td><%= r.gpa %></td>

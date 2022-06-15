@@ -78,12 +78,13 @@ app.post('/addStudent', (req, res) => {
   var db_weight = req.body.f_weight
   var db_hairColour = req.body.f_hairColour
 
-  var addStudentQuery = `INSERT INTO studData (id, fname, lname, gpa, age, height, weight, haircol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
-  var values = [db_studID, db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour];
+  var addStudentQuery = `INSERT INTO studData (id, fname, lname, gpa, age, height, weight, haircol, studid) VALUES (default, $1, $2, $3, $4, $5, $6, $7, $8)`
+  var values = [db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour, db_studID];
 
   pool.query(addStudentQuery, values, (err, result) => {
     if (err) res.end(err);
     console.log("added student: ", db_studID, db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour);
+    res.render('pages/studentDataAdd');
   })
 })
 
