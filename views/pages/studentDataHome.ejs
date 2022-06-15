@@ -9,18 +9,16 @@
         <!-- PAGE HEADINGS -->
         <div class="container text-center my-4">
             <h1 class="display-1">Welcome to the Student Database.</h1>
-            <h1 class="display-4">Please select an option to get started.</h1>
             <form action="/navAdd" method="get" class="d-inline">
                 <button type="submit" class="btn btn-success btn-lg" id="nav-addStudent">
                     Add A Student
                 </button>
             </form>
-            <button type="button" class="btn btn-primary btn-lg">Edit A Student</button>
             <button type="button" class="btn btn-warning btn-lg">Display All Students</button>
         </div>
 
         <!-- STUDENT TABLE -->
-        <div class="container-fluid">
+        <div class="container p-3 w-75 border border-dark rounded">
             <h1 class="display-6">Students</h1>
             <table class="table table-hover">
                 <tr class="table-dark">
@@ -85,9 +83,12 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">#</span>
-                        <input type="number" min="0" id="studID" name="f_studID" 
-                        class="form-control" value="<%= r.studid %>"
-                        placeholder="<%= r.studid %>">
+                        <div class="form-floating flex-grow-1">
+                            <input type="number" min="0" id="studID" name="f_studID" 
+                            class="form-control" value="<%= r.studid %>"
+                            placeholder="<%= r.studid %>">
+                            <label for="studID">Student ID</label>
+                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" id="firstName" name="f_firstName" 
