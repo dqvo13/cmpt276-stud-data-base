@@ -14,14 +14,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- custom script -->
-        <script src="./scripts/studentDataHomeNav.js"></script>
+        <!--
+        <script src="/scripts/studentDataHomeNav.js"></script>
+        -->
     </head>
     <body>
         <!-- PAGE HEADINGS -->
         <div class="container text-center my-4">
             <h1 class="display-1">Welcome to the Student Database.</h1>
             <h1 class="display-4">Please select an option to get started.</h1>
-            <button type="button" class="btn btn-success btn-lg" id="nav-addStudent">Add A Student</button>
+            <form action="/navAdd" method="get">
+                <button type="button" class="btn btn-success btn-lg" id="nav-addStudent">
+                    Add A Student
+                </button>
+            </form>
             <button type="button" class="btn btn-primary btn-lg">Edit A Student</button>
             <button type="button" class="btn btn-warning btn-lg">Display All Students</button>
         </div>
@@ -32,7 +38,8 @@
             <table class="table table-hover">
                 <tr class="table-dark">
                     <td>ID</td>
-                    <td>Name</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
                     <td>GPA</td>
                     <td>Age</td>
                     <td>Height (cm)</td>
@@ -41,16 +48,18 @@
                     <td class="bg-primary">Edit Info</td>
                     <td class="bg-danger">Delete Student</td>
                 </tr>
+                <% rows.forEach(function(r) { %>
                 <tr>
-                    <td>134727950</td>
-                    <td>decapixel</td>
-                    <td>4.0</td>
-                    <td>20</td>
-                    <td>174.0</td>
-                    <td>54.4</td>
+                    <td><%= r.id %></td>
+                    <td><%= r.fname %></td>
+                    <td><%= r.lname %></td>
+                    <td><%= r.gpa %></td>
+                    <td><%= r.age %></td>
+                    <td><%= r.height %></td>
+                    <td><%= r.weight %></td>
                     <td>
                         <input type="color" disabled
-                        class="form-control form-control-color" value="#000000">
+                        class="form-control form-control-color" value="<%= r.haircol _%>">
                     </td>
                     <td>
                         <button type="button" class="btn btn-outline-primary"
@@ -64,29 +73,7 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td>267984777</td>
-                    <td>Sparklenite</td>
-                    <td>4.0</td>
-                    <td>20</td>
-                    <td>174.0</td>
-                    <td>54.4</td>
-                    <td>
-                        <input type="color" disabled
-                        class="form-control form-control-color" value="#000000">
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-primary"
-                        data-bs-toggle="offcanvas" data-bs-target="#studEdit">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-danger">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                <% }); %>
             </table>
         </div>
 
