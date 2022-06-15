@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <%- include ("../partials/headerBoxes.ejs") %>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="display-1">box bois</h1>
+    </div>
+    <% rows.forEach(function(r) { %>
+    <div class="w-50 h-50 border border-primary">
+        <p class="text-center d-block"><%= r.fname %> <%= r.lname %></p>
+        <p class="text-center d-block"><%= r.gpa %></p>
+    </div>
+    <% }) %>
+</body>
+</html>

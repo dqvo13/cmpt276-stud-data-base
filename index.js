@@ -46,6 +46,9 @@ app.route('/navAdd').get((req, res) => {
 /***************************************************************** 
  *                PostgreSQL Connections
 *****************************************************************/
+/**
+ * VIEW students
+ */
 app.get('/viewStudents', (req, res) => {
   var getStudentsQuery = `SELECT * FROM studData`;
   pool.query(getStudentsQuery, (err, result) => {

@@ -14,11 +14,15 @@
                     Add A Student
                 </button>
             </form>
-            <button type="button" class="btn btn-warning btn-lg">Display All Students</button>
+            <form action="/viewStudents" method="get" class="d-inline">
+                <button type="submit" class="btn btn-warning btn-lg">
+                    Display As Boxes
+                </button>
+            </form>
         </div>
 
         <!-- STUDENT TABLE -->
-        <div class="container p-3 w-75 border border-dark rounded">
+        <div class="container p-3 w-100 border border-dark rounded">
             <h1 class="display-6">Students</h1>
             <table class="table table-hover">
                 <tr class="table-dark">
