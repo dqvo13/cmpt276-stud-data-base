@@ -11,8 +11,8 @@ const pool = new Pool({
   // connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
 
   // heroku server
-  connectionString: process.env.DATABASE_URL || 'postgres://nijehxhqiuhmjt:3d8f844ec8fdf41178a3485d76cb82b45187dbb614a97cfe82a333bc83185ce0@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d8b74thd5taace',
-  // connectionString: process.env.DATABASE_URL,
+  // connectionString: process.env.DATABASE_URL || 'postgres://nijehxhqiuhmjt:3d8f844ec8fdf41178a3485d76cb82b45187dbb614a97cfe82a333bc83185ce0@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d8b74thd5taace',
+  connectionString: process.env.DATABASE_URL,
   
   ssl: {
     require: true,
@@ -35,7 +35,7 @@ app.set('view engine', 'ejs');
 app.get('/', async (req, res) => {
   var getStudentsQuery = `SELECT * FROM studData`;
   console.log("base routing...");
-  console.log("connectionString: ", pool.connectionString);
+  // console.log("connectionString: ", pool.connectionString);
   console.log("process.env.DATABASE_URL: ", process.env.DATABASE_URL);
   
   const client = await pool.connect();
