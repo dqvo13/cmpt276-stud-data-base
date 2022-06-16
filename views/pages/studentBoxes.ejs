@@ -1,19 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
+        <title>View Students</title>
+        <%- include ("../partials/header.ejs") %>
+        <!--
+        <% rows.forEach(function(r) { %>
+        <script>
+            document.getElementById("box<%= r.id %>").style.width = "calc(<%= r.weight %> * 2px)";
+            document.getElementById("box<%= r.id %>").style.height = "calc(<%= r.height %> * 2px)";
+            document.getElementById("box<%= r.id %>").style.backgroundColor = "<%= r.haircol %>";
+        </script>
+        <% }) %>
+        -->
+    </head>
+    <body>
+        <!-- HEADING -->
+        <div class="container-fluid mx-3 my-4 float-start">
+            <form action="/" method="get" class="form-inline">
+                <button type="submit" id="nav-studHome"
+                    class="btn btn-outline-dark">
+                    <i class="fa fa-chevron-left me-1"></i>
+                    Back to Student Database
+                </button>
+            </form>
+        </div>
+        <div class="container text-center mb-5 clearfix">
+            <h1 class="display-1 text-uppercase">Students</h1>
+        </div>
+        <!--<div class="container w-auto h-auto justify-content-center border border-dark">-->
+        <% rows.forEach(function(r) { %>
+            
+                <div class="container p-1 mx-5 my-2 text-dark float-start clearfix 
+                            border overflow-auto" id="<%= r.id %>">
+                    <p class="text-center d-block bg-light rounded">
+                        <%= r.fname %> <%= r.lname %>
+                    </p>
+                    <p class="text-center d-block bg-light rounded">
+                        GPA: <%= r.gpa %>
+                    </p>
+                    <p class="text-center d-block bg-light rounded">
+                        Student#: <%= r.studid %>
+                    </p>
+                </div>
+            
+        
+        <% }) %>
+        <!--</div>-->
+        <% rows.forEach(function(r) { %>
+            <script>
+                // taken from https://stackoverflow.com/a/9932996
+                // function that removes a char at an index
+                String.prototype.removeCharAt = function (i) {
+                    var tmp = this.split('');   // convert to an array
+                    tmp.splice(i, 1);           // remove 1 element from the array (zero-index)
+                    return tmp.join('');        // reconstruct the string
+                }
 
-    <%- include ("../partials/headerBoxes.ejs") %>
+                var id = '<%- JSON.stringify(r.id) %>';
+                // var w = document.getElementById(id).innerHTML;
+                var w = '<%- JSON.stringify(r.weight) %>' * 2;
+                var h = '<%- JSON.stringify(r.height) %>';
+                var hairColour = '<%- JSON.stringify(r.haircol) %>';
+                //console.log("before removal: ", hairColour);
+                hairColour = hairColour.removeCharAt(8);
+                //console.log("after removal(8): ", hairColour);
+                hairColour = hairColour.removeCharAt(0);
+                //console.log("after removal(0): ", hairColour);
+                //console.log("id: ", id, typeof(id), ", width: ", w, typeof(w), ", height: ", h, typeof(h), ", colour: ", hairColour, typeof(hairColour));
+                // console.log(w + "px", typeof(w + "px"), typeof(h + "px"), typeof(hairColour + ""));
 
-</head>
-<body>
-    <div class="container-fluid">
-        <h1 class="display-1">box bois</h1>
-    </div>
-    <% rows.forEach(function(r) { %>
-    <div class="w-50 h-50 border border-primary">
-        <p class="text-center d-block"><%= r.fname %> <%= r.lname %></p>
-        <p class="text-center d-block"><%= r.gpa %></p>
-    </div>
-    <% }) %>
-</body>
+                document.getElementById(id).style.width = w + "px";
+                document.getElementById(id).style.height = h + "px";
+                document.getElementById(id).style.backgroundColor = hairColour;
+            </script>
+        <% }) %>
+        <!--
+        <% rows.forEach(function(r) { %>
+            <script>
+                document.getElementById("box<%= r.id %>").style.width = "calc(<%= r.weight %> * 2px)";
+                document.getElementById("box<%= r.id %>").style.height = "calc(<%= r.height %> * 2px)";
+                document.getElementById("box<%= r.id %>").style.backgroundColor = "<%= r.haircol %>";
+            </script>
+        <% }) %>
+        -->
+    </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <%- include ("../partials/headerHome.ejs") %>
+        <title>Student Data Home</title>
+        <%- include ("../partials/header.ejs") %>
         
     </head>
     <body>
@@ -39,107 +39,107 @@
                     <td class="bg-danger">Delete Student</td>
                 </tr>
                 <% rows.forEach(function(r) { %>
-                <tr>
-                    <td><%= r.id %></td>
-                    <td><%= r.studid %></td>
-                    <td><%= r.fname %></td>
-                    <td><%= r.lname %></td>
-                    <td><%= r.gpa %></td>
-                    <td><%= r.age %></td>
-                    <td><%= r.height %></td>
-                    <td><%= r.weight %></td>
-                    <td>
-                        <input type="color" disabled
-                        class="form-control form-control-color" value="<%= r.haircol _%>">
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-outline-primary"
-                        data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                    </td>
-                    <td>
-                        <form action="/deleteStudent/<%= r.id _%>" method="get">
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="fa fa-trash"></i>
+                    <tr>
+                        <td><%= r.id %></td>
+                        <td><%= r.studid %></td>
+                        <td><%= r.fname %></td>
+                        <td><%= r.lname %></td>
+                        <td><%= r.gpa %></td>
+                        <td><%= r.age %></td>
+                        <td><%= r.height %></td>
+                        <td><%= r.weight %></td>
+                        <td>
+                            <input type="color" disabled
+                            class="form-control form-control-color" value="<%= r.haircol _%>">
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-outline-primary"
+                            data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
+                                <i class="fa fa-pencil"></i>
                             </button>
-                        </form>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <form action="/deleteStudent/<%= r.id _%>" method="get">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                 <% }); %>
             </table>
         </div>
 
         <!-- OFFCANVAS EDIT MENU -->
         <% rows.forEach(function(r) { %>
-        <div class="offcanvas offcanvas-end bg-primary" id="studEdit<%= r.id _%>">
-            <div class="offcanvas-header">
-                <h1 class="offcanvas-title text-light">Edit Student</h1>
-                <button type="button" data-bs-dismiss="offcanvas"
-                class="btn-close btn-close-white text-reset"></button>
-            </div>
-            <div class="offcanvas-body">
-                <form action="/updateStudent" method="post">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">ID</span>
-                        <input type="number" id="ID" name="f_ID"
-                        class="form-control" value="<%= r.id %>" readonly>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">#</span>
-                        <div class="form-floating flex-grow-1">
-                            <input type="number" min="0" id="studID" name="f_studID" 
-                            class="form-control" value="<%= r.studid %>"
-                            placeholder="<%= r.studid %>">
-                            <label for="studID">Student ID</label>
+            <div class="offcanvas offcanvas-end bg-primary" id="studEdit<%= r.id _%>">
+                <div class="offcanvas-header">
+                    <h1 class="offcanvas-title text-light">Edit Student</h1>
+                    <button type="button" data-bs-dismiss="offcanvas"
+                    class="btn-close btn-close-white text-reset"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <form action="/updateStudent" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">ID</span>
+                            <input type="number" id="ID" name="f_ID"
+                            class="form-control" value="<%= r.id %>" readonly>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="text" id="firstName" name="f_firstName" 
-                        class="form-control" value="<%= r.fname %>"
-                        placeholder="<%= r.fname %>">
-                        <input type="text" id="lastName" name="f_lastName" 
-                        class="form-control" value="<%= r.lname %>"
-                        placeholder="<%= r.lname %>">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">#</span>
-                        <input type="number" min="0" max="5" step="0.01" id="gpa" name="f_gpa"
-                        class="form-control" value="<%= r.gpa %>"
-                        placeholder="<%= r.gpa %>">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="number" min="0" max="150" id="age" name="f_age"
-                        class="form-control" value="<%= r.age %>"
-                        placeholder="<%= r.age %>">
-                        <span class="input-group-text">years old</span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="number" min="0" id="height" name="f_height"
-                        class="form-control" value="<%= r.height %>"
-                        placeholder="<%= r.height %>">
-                        <span class="input-group-text">cm</span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="number" min="0" id="weight" name="f_weight"
-                        class="form-control" value="<%= r.weight %>"
-                        placeholder="<%= r.weight %>">
-                        <span class="input-group-text">kg</span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Hair Colour:</span>
-                        <input type="color" id="hairColour" name="f_hairColour"
-                        class="form-control form-control-color" value="<%= r.haircol _%>">
-                    </div>
-                    <div class="d-grid gap-3">
-                        <button type="reset" value="Reset"
-                        class="btn btn-danger btn-sm btn-block">Reset</button>
-                        <button type="submit" value="Submit" 
-                        class="btn btn-success btn-lg btn-block">Save Student</button>
-                    </div>
-                </form>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">#</span>
+                            <div class="form-floating flex-grow-1">
+                                <input type="number" min="0" id="studID" name="f_studID" 
+                                class="form-control" value="<%= r.studid %>"
+                                placeholder="<%= r.studid %>">
+                                <label for="studID">Student ID</label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" id="firstName" name="f_firstName" 
+                            class="form-control" value="<%= r.fname %>"
+                            placeholder="<%= r.fname %>">
+                            <input type="text" id="lastName" name="f_lastName" 
+                            class="form-control" value="<%= r.lname %>"
+                            placeholder="<%= r.lname %>">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">#</span>
+                            <input type="number" min="0" max="5" step="0.01" id="gpa" name="f_gpa"
+                            class="form-control" value="<%= r.gpa %>"
+                            placeholder="<%= r.gpa %>">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" max="150" id="age" name="f_age"
+                            class="form-control" value="<%= r.age %>"
+                            placeholder="<%= r.age %>">
+                            <span class="input-group-text">years old</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" id="height" name="f_height"
+                            class="form-control" value="<%= r.height %>"
+                            placeholder="<%= r.height %>">
+                            <span class="input-group-text">cm</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" min="0" id="weight" name="f_weight"
+                            class="form-control" value="<%= r.weight %>"
+                            placeholder="<%= r.weight %>">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Hair Colour:</span>
+                            <input type="color" id="hairColour" name="f_hairColour"
+                            class="form-control form-control-color" value="<%= r.haircol _%>">
+                        </div>
+                        <div class="d-grid gap-3">
+                            <button type="reset" value="Reset"
+                            class="btn btn-danger btn-sm btn-block">Reset</button>
+                            <button type="submit" value="Submit" 
+                            class="btn btn-success btn-lg btn-block">Save Student</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
         <% }); %>
     </body>
 </html>

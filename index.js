@@ -54,6 +54,7 @@ app.get('/viewStudents', (req, res) => {
   pool.query(getStudentsQuery, (err, result) => {
     if (err) res.end(err);                  // end response if there's an error
     var tableObj = {'rows':result.rows};    // JSON object containing results of query
+    console.log(result.rows);
     res.render('pages/studentBoxes', tableObj);
   })
 })

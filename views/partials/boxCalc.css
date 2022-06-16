@@ -1,0 +1,10 @@
+:root {
+    --box-width: 100px;
+    --box-height: 100px;
+    --hair-color: '#FFFFFF'
+}
+div.boxy {
+    width: var(--box-width);
+    height: var(--box-height);
+    background-color: var(--hair-color);
+}
