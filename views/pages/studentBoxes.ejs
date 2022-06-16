@@ -7,7 +7,7 @@
         <link href="/stylesheets/bsOverride.css" rel="stylesheet">
     </head>
     <body>
-        <!-- HEADING -->
+        <!-- PAGE HEADINGS -->
         <div class="container-fluid mx-3 my-4 float-start">
             <form action="/" method="get" class="form-inline">
                 <button type="submit" id="nav-studHome"
@@ -21,7 +21,7 @@
             <h1 class="display-1 text-uppercase">Students</h1>
         </div>
 
-        <!-- box content from database -->
+        <!-- BOX CONTENT from database -->
         <% rows.forEach(function(r) { %>
             <button type="button" class="bg-transparent border-noset"
                     data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
@@ -40,7 +40,7 @@
             </button>
         <% }) %>
 
-        <!-- script to dynamically alter boxes -->
+        <!-- SCRIPT to dynamically ALTER BOXES -->
         <% rows.forEach(function(r) { %>
             <script>
                 // taken from https://stackoverflow.com/a/9932996
@@ -64,7 +64,7 @@
             </script>
         <% }) %>
 
-        <!-- OFFCANVAS EDIT/DELETE MENU -->
+        <!-- offcanvas EDIT/DELETE menu -->
         <% rows.forEach(function(r) { %>
             <div class="offcanvas offcanvas-end bg-primary" id="studEdit<%= r.id _%>">
                 <div class="offcanvas-header">
@@ -74,7 +74,7 @@
                     
                 </div>
                 <div class="offcanvas-body">
-                    <form action="/deleteStudent/<%= r.id _%>" method="get"
+                    <form action="/deleteStudentBox/<%= r.id _%>" method="get"
                             class="mb-3">
                         <div class="d-grid gap-3">
                             <button type="submit" class="btn btn-sm btn-danger btn-block">

@@ -202,6 +202,33 @@ app.get('/deleteStudent/:id', async (req, res) => {
   }
 })
 
+app.get('/deleteStudentBox/:id', async (req, res) => {
+  var db_ID = req.params.id
+
+  var deleteStudentQuery = `DELETE FROM studdata WHERE id=$1`
+  var values = [db_ID]
+  var getStudentsQuery = `SELECT * FROM studdata`
+
+  const client = await pool.connect()
+  try {
+    const rows = await client.query(deleteStudentQuery, values)
+    console.log("deleted student:", values)
+    // console.log(JSON.stringify(rows))
+  } finally {
+    client.release()
+  }
+
+  const client2 = await pool.connect()
+  try {
+    const rows = await client2.query(getStudentsQuery)
+    console.log("SELECT after DELETE.")
+    // console.log(JSON.stringify(rows))
+    res.render('pages/studentBoxes', rows);
+  } finally {
+    client2.release()
+  }
+})
+
 /**
  * PORT LISTENING
  */
