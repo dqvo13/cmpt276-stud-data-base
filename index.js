@@ -5,18 +5,20 @@ const PORT = process.env.PORT || 5000
 
 // connect to postgreSQL
 const { Pool } = require('pg');
-var pool = new Pool({
+const pool = new Pool({
   // localhost server
   // connectionString: 'schema://user:password@host/database'
-  connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
+  // connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
 
   // heroku server
-  // connectionString: process.env.DATABASE_URL
-  /*
+  connectionString: process.env.DATABASE_URL || 'postgres://nijehxhqiuhmjt:3d8f844ec8fdf41178a3485d76cb82b45187dbb614a97cfe82a333bc83185ce0@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d8b74thd5taace',
+  
   ssl: {
+    require: true,
     rejectUnauthorized: false
   }
-  */
+  
+  // ssl: process.env.DATABASE_URL ? true : false
 });
 
 app = express();
@@ -29,13 +31,31 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   var getStudentsQuery = `SELECT * FROM studData`;
+  console.log("base routing...");
+  
+  const client = await pool.connect();
+  try {
+    const rows = await client.query(getStudentsQuery)
+    console.log("home SELECT.")
+    // console.log(JSON.stringify(rows))
+    res.render('pages/studentDataHome', rows);
+  } finally {
+    client.release()
+  }
+  
+  /*
   pool.query(getStudentsQuery, (err, result) => {
-    if (err) res.end(err);                  // end response if there's an error
+    if (err) {
+      console.log("error occurred :(")
+      res.end(err);
+    }                  // end response if there's an error
     var tableObj = {'rows':result.rows};    // JSON object containing results of query
+    console.log(tableObj);
     res.render('pages/studentDataHome', tableObj);
   })
+  */
 });
 app.route('/navAdd').get((req, res) => {
   console.log("going to add page...")
