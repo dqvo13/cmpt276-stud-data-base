@@ -54,7 +54,7 @@ app.get('/viewStudents', (req, res) => {
   pool.query(getStudentsQuery, (err, result) => {
     if (err) res.end(err);                  // end response if there's an error
     var tableObj = {'rows':result.rows};    // JSON object containing results of query
-    console.log(result.rows);
+    // console.log(result.rows);
     res.render('pages/studentBoxes', tableObj);
   })
 })
@@ -97,7 +97,7 @@ app.post('/addStudent', async (req, res) => {
 })
 
 /**
- * UPDATE a student
+ * UPDATE a student (home)
  */
 app.post('/updateStudent', async (req, res) => {
   var db_ID = req.body.f_ID
@@ -129,6 +129,44 @@ app.post('/updateStudent', async (req, res) => {
     console.log("SELECT after UPDATE.")
     // console.log(JSON.stringify(rows))
     res.render('pages/studentDataHome', rows);
+  } finally {
+    client2.release()
+  }
+})
+
+/**
+ * UPDATE a student (box)
+ */
+ app.post('/updateStudentBox', async (req, res) => {
+  var db_ID = req.body.f_ID
+  var db_studID = req.body.f_studID
+  var db_firstName = req.body.f_firstName
+  var db_lastName = req.body.f_lastName
+  var db_gpa = req.body.f_gpa
+  var db_age = req.body.f_age
+  var db_height = req.body.f_height
+  var db_weight = req.body.f_weight
+  var db_hairColour = req.body.f_hairColour
+
+  var updateStudentQuery = `UPDATE studdata SET fname=$1, lname=$2, gpa=$3, age=$4, height=$5, weight=$6, haircol=$7, studid=$8 WHERE id=$9`
+  var values = [db_firstName, db_lastName, db_gpa, db_age, db_height, db_weight, db_hairColour, db_studID, db_ID]
+  var getStudentsQuery = `SELECT * FROM studData`
+  
+  const client = await pool.connect()
+  try {
+    const rows = await client.query(updateStudentQuery, values)
+    console.log("updated student:", values)
+    // console.log(JSON.stringify(rows))
+  } finally {
+    client.release()
+  }
+
+  const client2 = await pool.connect()
+  try {
+    const rows = await client2.query(getStudentsQuery)
+    console.log("SELECT after UPDATE.")
+    // console.log(JSON.stringify(rows))
+    res.render('pages/studentBoxes', rows);
   } finally {
     client2.release()
   }

@@ -3,7 +3,8 @@
     <head>
         <title>Student Data Home</title>
         <%- include ("../partials/header.ejs") %>
-        
+        <!-- custom CSS -->
+        <link href="/stylesheets/bsOverride.css" rel="stylesheet">
     </head>
     <body>
         <!-- PAGE HEADINGS -->
@@ -22,7 +23,7 @@
         </div>
 
         <!-- STUDENT TABLE -->
-        <div class="container p-3 w-100 border border-dark rounded">
+        <div class="container p-3 w-100 border border-dark rounded shadow-lg">
             <h1 class="display-6">Students</h1>
             <table class="table table-hover">
                 <tr class="table-dark">
@@ -48,16 +49,19 @@
                         <td><%= r.age %></td>
                         <td><%= r.height %></td>
                         <td><%= r.weight %></td>
+                        <!-- hair colour -->
                         <td>
                             <input type="color" disabled
                             class="form-control form-control-color" value="<%= r.haircol _%>">
                         </td>
+                        <!-- edit button -->
                         <td>
-                            <button type="submit" class="btn btn-outline-primary"
+                            <button type="button" class="btn btn-outline-primary"
                             data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
                                 <i class="fa fa-pencil"></i>
                             </button>
                         </td>
+                        <!-- delete button -->
                         <td>
                             <form action="/deleteStudent/<%= r.id _%>" method="get">
                                 <button type="submit" class="btn btn-outline-danger">
@@ -89,41 +93,59 @@
                             <span class="input-group-text">#</span>
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" id="studID" name="f_studID" 
-                                class="form-control" value="<%= r.studid %>"
+                                class="form-control radius-end" value="<%= r.studid %>"
                                 placeholder="<%= r.studid %>">
                                 <label for="studID">Student ID</label>
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" id="firstName" name="f_firstName" 
-                            class="form-control" value="<%= r.fname %>"
-                            placeholder="<%= r.fname %>">
-                            <input type="text" id="lastName" name="f_lastName" 
-                            class="form-control" value="<%= r.lname %>"
-                            placeholder="<%= r.lname %>">
+                            <div class="form-floating flex-grow-1">
+                                <input type="text" id="firstName" name="f_firstName" 
+                                class="form-control radius-top" value="<%= r.fname %>"
+                                placeholder="<%= r.fname %>">
+                                <label for="firstName">First Name</label>
+                            </div>
+                            <div class="form-floating flex-grow-1">
+                                <input type="text" id="lastName" name="f_lastName" 
+                                class="form-control radius-bottom" value="<%= r.lname %>"
+                                placeholder="<%= r.lname %>">
+                                <label for="lastName">Last Name</label>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">#</span>
-                            <input type="number" min="0" max="5" step="0.01" id="gpa" name="f_gpa"
-                            class="form-control" value="<%= r.gpa %>"
-                            placeholder="<%= r.gpa %>">
+                            <div class="form-floating flex-grow-1">
+                                <input type="number" min="0" max="5" step="0.01" id="gpa" name="f_gpa"
+                                class="form-control radius-end" value="<%= r.gpa %>"
+                                placeholder="<%= r.gpa %>">
+                                <label for="gpa">GPA</label>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="number" min="0" max="150" id="age" name="f_age"
-                            class="form-control" value="<%= r.age %>"
-                            placeholder="<%= r.age %>">
+                            <div class="form-floating flex-grow-1">
+                                <input type="number" min="0" max="150" id="age" name="f_age"
+                                class="form-control" value="<%= r.age %>"
+                                placeholder="<%= r.age %>">
+                                <label for="age">Age</label>
+                            </div>
                             <span class="input-group-text">years old</span>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="number" min="0" id="height" name="f_height"
-                            class="form-control" value="<%= r.height %>"
-                            placeholder="<%= r.height %>">
+                            <div class="form-floating flex-grow-1">
+                                <input type="number" min="0" id="height" name="f_height"
+                                class="form-control" value="<%= r.height %>"
+                                placeholder="<%= r.height %>">
+                                <label for="height">Height</label>
+                            </div>
                             <span class="input-group-text">cm</span>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="number" min="0" id="weight" name="f_weight"
-                            class="form-control" value="<%= r.weight %>"
-                            placeholder="<%= r.weight %>">
+                            <div class="form-floating flex-grow-1">
+                                <input type="number" min="0" id="weight" name="f_weight"
+                                class="form-control" value="<%= r.weight %>"
+                                placeholder="<%= r.weight %>">
+                                <label for="weight">Weight</label>
+                            </div>
                             <span class="input-group-text">kg</span>
                         </div>
                         <div class="input-group mb-3">
