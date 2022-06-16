@@ -27,6 +27,7 @@
         </div>
 
         <!-- BOX CONTENT from database -->
+        <div class="container-fluid p-3 border border-dark rounded shadow-lg">
         <% rows.forEach(function(r) { %>
             <button type="button" class="bg-transparent border-noset"
                     data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
@@ -44,6 +45,7 @@
                 </div>
             </button>
         <% }) %>
+        </div>
 
         <!-- SCRIPT to dynamically ALTER BOXES -->
         <% rows.forEach(function(r) { %>
