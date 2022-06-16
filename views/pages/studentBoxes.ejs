@@ -17,17 +17,18 @@
                 </button>
             </form>
         </div>
-        <div class="container text-center mb-5 clearfix">
+        <div class="container text-center mb-3 clearfix">
             <h1 class="display-1 text-uppercase">Students</h1>
+            <h1 class="display-6">Click a student to Edit/Delete.</h1>
             <form action="/navAdd" method="get" class="d-inline">
                 <button type="submit" class="btn btn-success btn-lg" id="nav-addStudent">
-                    Add A Student
+                    Or, Add A Student
                 </button>
             </form>
         </div>
 
         <!-- BOX CONTENT from database -->
-        <div class="container-fluid p-3 border border-dark rounded shadow-lg">
+        <div class="container-fluid p-3 m-3 border border-dark rounded shadow-lg">
         <% rows.forEach(function(r) { %>
             <button type="button" class="bg-transparent border-noset"
                     data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
