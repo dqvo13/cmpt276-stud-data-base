@@ -1,4 +1,4 @@
-const { json } = require('express');
+// const { json } = require('express');
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
@@ -8,10 +8,8 @@ const { Pool } = require('pg');
 const pool = new Pool({
   // localhost server
   // connectionString: 'schema://user:password@host/database'
-  // connectionString: 'postgres://postgres:adm1n-superroot@localhost/students'
 
   // heroku server
-  // connectionString: process.env.DATABASE_URL || 'postgres://nijehxhqiuhmjt:3d8f844ec8fdf41178a3485d76cb82b45187dbb614a97cfe82a333bc83185ce0@ec2-54-157-16-196.compute-1.amazonaws.com:5432/d8b74thd5taace',
   connectionString: process.env.DATABASE_URL,
   
   ssl: {
