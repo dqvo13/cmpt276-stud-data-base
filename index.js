@@ -1,4 +1,3 @@
-// const { json } = require('express');
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
@@ -11,13 +10,10 @@ const pool = new Pool({
 
   // heroku server
   connectionString: process.env.DATABASE_URL,
-  
   ssl: {
     require: true,
     rejectUnauthorized: false
   }
-  
-  // ssl: process.env.DATABASE_URL ? true : false
 });
 
 app = express();
@@ -45,18 +41,6 @@ app.get('/', async (req, res) => {
   } finally {
     client.release()
   }
-  
-  /*
-  pool.query(getStudentsQuery, (err, result) => {
-    if (err) {
-      console.log("error occurred :(")
-      res.end(err);
-    }                  // end response if there's an error
-    var tableObj = {'rows':result.rows};    // JSON object containing results of query
-    console.log(tableObj);
-    res.render('pages/studentDataHome', tableObj);
-  })
-  */
 });
 app.route('/navAdd').get((req, res) => {
   console.log("going to add page...")
@@ -194,7 +178,7 @@ app.post('/updateStudent', async (req, res) => {
 })
 
 /**
- * DELETE a student
+ * DELETE a student (home)
  */
 app.get('/deleteStudent/:id', async (req, res) => {
   var db_ID = req.params.id
@@ -223,6 +207,9 @@ app.get('/deleteStudent/:id', async (req, res) => {
   }
 })
 
+/**
+ * DELETE a student (box)
+ */
 app.get('/deleteStudentBox/:id', async (req, res) => {
   var db_ID = req.params.id
 

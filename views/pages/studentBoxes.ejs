@@ -74,9 +74,9 @@
 
         <!-- offcanvas EDIT/DELETE menu -->
         <% rows.forEach(function(r) { %>
-            <div class="offcanvas offcanvas-end bg-primary" id="studEdit<%= r.id _%>">
+            <div class="offcanvas offcanvas-end" id="studEdit<%= r.id _%>">
                 <div class="offcanvas-header">
-                    <h1 class="offcanvas-title text-light">Edit/Delete Student</h1>
+                    <h1 class="offcanvas-title">Edit/Delete Student</h1>
                     <button type="button" data-bs-dismiss="offcanvas"
                     class="btn-close btn-close-white text-reset"></button>
                     
@@ -101,7 +101,7 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" id="studID" name="f_studID" 
                                 class="form-control radius-end" value="<%= r.studid %>"
-                                placeholder="<%= r.studid %>">
+                                placeholder="<%= r.studid %>" required>
                                 <label for="studID">Student ID</label>
                             </div>
                         </div>
@@ -109,13 +109,13 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="text" id="firstName" name="f_firstName" 
                                 class="form-control radius-top" value="<%= r.fname %>"
-                                placeholder="<%= r.fname %>">
+                                placeholder="<%= r.fname %>" required>
                                 <label for="firstName">First Name</label>
                             </div>
                             <div class="form-floating flex-grow-1">
                                 <input type="text" id="lastName" name="f_lastName" 
                                 class="form-control radius-bottom" value="<%= r.lname %>"
-                                placeholder="<%= r.lname %>">
+                                placeholder="<%= r.lname %>" required>
                                 <label for="lastName">Last Name</label>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" max="5" step="0.01" id="gpa" name="f_gpa"
                                 class="form-control radius-end" value="<%= r.gpa %>"
-                                placeholder="<%= r.gpa %>">
+                                placeholder="<%= r.gpa %>" required>
                                 <label for="gpa">GPA</label>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" max="150" id="age" name="f_age"
                                 class="form-control radius-start" value="<%= r.age %>"
-                                placeholder="<%= r.age %>">
+                                placeholder="<%= r.age %>" required>
                                 <label for="age">Age</label>
                             </div>
                             <span class="input-group-text">years old</span>
@@ -141,7 +141,7 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" id="height" name="f_height"
                                 class="form-control radius-start" value="<%= r.height %>"
-                                placeholder="<%= r.height %>">
+                                placeholder="<%= r.height %>" required>
                                 <label for="height">Height</label>
                             </div>
                             <span class="input-group-text">cm</span>
@@ -150,7 +150,7 @@
                             <div class="form-floating flex-grow-1">
                                 <input type="number" min="0" id="weight" name="f_weight"
                                 class="form-control radius-start" value="<%= r.weight %>"
-                                placeholder="<%= r.weight %>">
+                                placeholder="<%= r.weight %>" required>
                                 <label for="weight">Weight</label>
                             </div>
                             <span class="input-group-text">kg</span>
@@ -158,7 +158,8 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text">Hair Colour:</span>
                             <input type="color" id="hairColour" name="f_hairColour"
-                            class="form-control form-control-color" value="<%= r.haircol _%>">
+                            class="form-control form-control-color" value="<%= r.haircol _%>"
+                            required>
                         </div>
                         <div class="d-grid gap-3">
                             <button type="reset" value="Reset"
