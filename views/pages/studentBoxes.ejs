@@ -28,12 +28,12 @@
         </div>
 
         <!-- BOX CONTENT from database -->
-        <div class="container w-100 p-3 mx-auto border border-dark rounded shadow-lg">
+        <div class="container w-100 p-3 mx-auto mb-5 border border-dark rounded shadow-lg">
         <% rows.forEach(function(r) { %>
             <button type="button" class="bg-transparent border-noset"
                     data-bs-toggle="offcanvas" data-bs-target="#studEdit<%= r.id _%>">
                 <div class="container p-1 mx-5 my-2 text-dark float-start clearfix 
-                            border overflow-auto" id="<%= r.id %>">
+                            border rounded overflow-auto" id="<%= r.id %>">
                     <p class="text-center d-block bg-light rounded">
                         <%= r.fname %> <%= r.lname %>
                     </p>
